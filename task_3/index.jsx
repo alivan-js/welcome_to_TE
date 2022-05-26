@@ -5,12 +5,12 @@ const MainComponent = ({
 }) => {
     const [ _, updateComponent ] = useState(); // change state for force component updating
 
-    const memoizedUser = useMemo(() => {return user}, [])
+    const memoizedUser = useMemo(() => {return user}, [user])
 
     return (
         <Fragment>
             <button onClick={updateComponent}>update MainComponent</button>
-            <ChildComponent user={user} />
+            <ChildComponent user={memoizedUser} />
         </Fragment>
     );
 };

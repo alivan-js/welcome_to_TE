@@ -26,9 +26,7 @@ const ChildComponent = forwardRef((props, ref) => {
     };
 
     return (
-        <div>
-            {isActive && <div>child component</div>}
-        </div>
+        isActive ? <div>child component</div> : null
     );
 
 })
