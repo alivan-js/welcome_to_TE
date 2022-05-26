@@ -50,4 +50,12 @@ const tileArr: Array<ITile> = [
 ];
 
 // write You code here
-// const result: IResult = ...
+const ITransform = (arr: ITile[]): IResult => {
+
+   let result = arr.reduce((acc, el) => {
+        return {...acc, totalPriceSum: acc.totalPriceSum + el.price, tileCount: acc.tileCount + 1}
+    }, {totalPriceSum: 0, tileCount: 0})
+
+    return {...result, averagePriceSum: result.totalPriceSum / arr.length}
+
+}

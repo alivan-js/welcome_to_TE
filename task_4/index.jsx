@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import {Component, createRef, forwardRef, useState} from "react";
 
 class MainComponent extends Component {
     myRef = createRef(); // create simple ref
@@ -9,20 +9,27 @@ class MainComponent extends Component {
         return (
             <>
                 <button onClick={this.toggleChildVisibility}>toggle child component</button>
-                <ChildComponent ref={this.myRef} />  {/* set ref for controlling child component */}
+                <ChildComponent ref={this.myRef}/> {/* set ref for controlling child component */}
             </>
         );
     }
 };
 
-class ChildComponent extends Component {
-    state = { isActive: true };
+const ChildComponent = forwardRef((props, ref) => {
 
-    toggleButton = () => this.setState({ isActive: !this.state.isActive });
+    const [isActive, setIsActive] = useState(false)
 
-    render() {
-        return (
-            this.state.isActive ? <div>child component</div> : null
-        );
-    }
-};
+    ref.current = {
+        toggleButton: () => {
+            setIsActive(!isActive)
+        }
+    };
+
+    return (
+        <div>
+            {isActive && <div>child component</div>}
+        </div>
+    );
+
+})
+
